@@ -2,12 +2,12 @@ name: Security & Tests
 
 on:
   push:
-    branches: ["*"]
+    branches: ["**"]
   pull_request:
-    branches: ["*"]
+    branches: ["**"]
 
 jobs:
-  # --- Audit des dépendances Node.js -------------------------------------------
+
   audit-node:
     name: Audit Node.js
     runs-on: ubuntu-latest
@@ -27,7 +27,6 @@ jobs:
         working-directory: ./recette-api
         run: npm audit --audit-level=high
 
-  # --- Tests unitaires Node.js -------------------------------------------------
   test-node:
     name: Tests API Node.js
     runs-on: ubuntu-latest
@@ -47,7 +46,6 @@ jobs:
         working-directory: ./recette-api
         run: npx jest --verbose
 
-  # --- Audit des dépendances Python --------------------------------------------
   audit-python:
     name: Audit Python
     runs-on: ubuntu-latest
@@ -67,10 +65,3 @@ jobs:
 
       - name: Audit Python packages
         run: pip-audit -r Recette/requirements.txt
-```
-
-Pour que ça fonctionne, crée aussi un fichier `Recette/requirements.txt` :
-```
-Django==6.0.2
-requests==2.31.0
-Pillow==10.2.0
