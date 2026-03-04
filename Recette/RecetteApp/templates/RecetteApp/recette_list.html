@@ -1,0 +1,60 @@
+{% extends 'RecetteApp/base.html' %}
+{% block title %}Liste des recettes{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Liste des recettes</h1>
+</div>
+
+<form method="GET" class="row g-2 mb-4">
+    <div class="col-auto">
+        <input type="text" name="q" value="{{ query }}" placeholder="Rechercher par nom" class="form-control">
+    </div>
+    <div class="col-auto">
+        <select name="category" class="form-select">
+            <option value="">Toutes les catégories</option>
+            <option value="entree"   {% if category == "entree"   %}selected{% endif %}>Entrée</option>
+            <option value="plat"     {% if category == "plat"     %}selected{% endif %}>Plat</option>
+            <option value="dessert"  {% if category == "dessert"  %}selected{% endif %}>Dessert</option>
+            <option value="cocktail" {% if category == "cocktail" %}selected{% endif %}>Cocktail</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </div>
+</form>
+
+<div class="row">
+{% for recette in recettes %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if recette.image %}
+                <img src="{{ recette.image }}" class="card-img-top" alt="{{ recette.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'recette_detail' recette.id %}" class="text-decoration-none">{{ recette.title }}</a>
+                </h5>
+                <p class="card-text">
+                    <span class="badge bg-secondary">{{ recette.category }}</span>
+                    &nbsp;⏱ {{ recette.preparation_time }} min
+                    &nbsp;👤 {{ recette.portions }} portions
+                </p>
+                <p class="card-text"><small class="text-muted">Difficulté : {{ recette.difficulty }}</small></p>
+            </div>
+            {% if is_authenticated %}
+            <div class="card-footer d-flex gap-2">
+                <a href="{% url 'recette_edit' recette.id %}" class="btn btn-sm btn-warning">Modifier</a>
+                <form method="POST" action="{% url 'recette_delete' recette.id %}" onsubmit="return confirm('Supprimer cette recette ?')">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <p>Aucune recette disponible.</p>
+{% endfor %}
+</div>
+{% endblock %}
