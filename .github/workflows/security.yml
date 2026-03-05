@@ -44,7 +44,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./recette-api
-        run: ./node_modules/.bin/jest --verbose
+        run: node node_modules/jest/bin/jest.js --verbose
 
   audit-python:
     name: Audit Python
