@@ -72,7 +72,7 @@ def recette_detail(request, pk):
 
 def recette_create(request):
     if not is_authenticated(request):
-        messages.warning(request, "Vous devez etre connecte pour ajouter une recette.")
+        messages.warning(request, "Vous devez être connecté pour ajouter une recette.")
         return redirect("login")
     if request.method == "POST":
         data = {
@@ -94,7 +94,7 @@ def recette_create(request):
                 timeout=5,
             )
             if response.status_code == 201:
-                messages.success(request, "Recette ajoutee avec succes !")
+                messages.success(request, "Recette ajoutée avec succès !")
                 return redirect("recette_list")
             else:
                 messages.error(request, f"Erreur API : {response.json().get('message')}")
@@ -108,7 +108,7 @@ def recette_create(request):
 
 def recette_edit(request, pk):
     if not is_authenticated(request):
-        messages.warning(request, "Vous devez etre connecte pour modifier une recette.")
+        messages.warning(request, "Vous devez être connecté pour modifier une recette.")
         return redirect("login")
     try:
         response = requests.get(f"{API_URL}/recipes/{pk}", timeout=5)
@@ -135,7 +135,7 @@ def recette_edit(request, pk):
                 timeout=5,
             )
             if response.status_code == 200:
-                messages.success(request, "Recette modifiee avec succes !")
+                messages.success(request, "Recette modifiée avec succès !")
                 return redirect("recette_detail", pk=pk)
             else:
                 messages.error(request, f"Erreur API : {response.json().get('message')}")
@@ -150,7 +150,7 @@ def recette_edit(request, pk):
 
 def recette_delete(request, pk):
     if not is_authenticated(request):
-        messages.warning(request, "Vous devez etre connecte pour supprimer une recette.")
+        messages.warning(request, "Vous devez être connecté pour supprimer une recette.")
         return redirect("login")
     if request.method == "POST":
         try:
@@ -159,7 +159,7 @@ def recette_delete(request, pk):
                 headers=get_auth_headers(request),
                 timeout=5,
             )
-            messages.success(request, "Recette supprimee.")
+            messages.success(request, "Recette supprimée.")
         except requests.RequestException:
             messages.error(request, "Impossible de contacter l'API.")
     return redirect("recette_list")
@@ -167,7 +167,7 @@ def recette_delete(request, pk):
 
 def recette_reviews(request, pk):
     if not is_authenticated(request):
-        messages.warning(request, "Vous devez etre connecte pour laisser un avis.")
+        messages.warning(request, "Vous devez être connecté pour laisser un avis.")
         return redirect("login")
     if request.method == "POST":
         data = {
@@ -183,7 +183,7 @@ def recette_reviews(request, pk):
                 timeout=5,
             )
             if response.status_code == 201:
-                messages.success(request, "Avis ajoute avec succes !")
+                messages.success(request, "Avis ajouté avec succès !")
             else:
                 messages.error(request, f"Erreur : {response.json().get('message')}")
         except requests.RequestException:
@@ -201,7 +201,7 @@ def recette_review_delete(request, pk, review_id):
                 headers=get_auth_headers(request),
                 timeout=5,
             )
-            messages.success(request, "Avis supprime.")
+            messages.success(request, "Avis supprimé.")
         except requests.RequestException:
             messages.error(request, "Impossible de contacter l'API.")
     return redirect("recette_detail", pk=pk)

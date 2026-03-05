@@ -44,7 +44,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./recette-api
-        run: npx jest --verbose
+        run: npm test
 
   audit-python:
     name: Audit Python

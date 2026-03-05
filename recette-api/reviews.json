@@ -14,5 +14,13 @@
     "comment": "Pas mal",
     "author": "Emilien",
     "created_at": "2026-03-04T11:21:04.694Z"
+  },
+  {
+    "id": 3,
+    "recipe_id": 2,
+    "rating": 3,
+    "comment": "",
+    "author": "Jack",
+    "created_at": "2026-03-04T15:10:05.417Z"
   }
 ]
