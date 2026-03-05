@@ -64,6 +64,5 @@ jobs:
         run: pip install -r Recette/requirements.txt
 
       - name: Audit Python packages
-         run: pip-audit -r Recette/requirements.txt
+        run: pip-audit -r Recette/requirements.txt
         continue-on-error: true
-
