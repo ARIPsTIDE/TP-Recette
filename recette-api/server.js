@@ -106,7 +106,7 @@ function sanitizeRecipe(data) {
 
 // ─── Persistance JSON ─────────────────────────────────────────────────────────
 const DATA_FILE = process.env.DATA_FILE || path.join(__dirname, "recipes.json");
-const REVIEWS_FILE = path.join(__dirname, "reviews.json");
+const REVIEWS_FILE = process.env.REVIEWS_FILE || path.join(__dirname, "reviews.json");
 
 function loadJSON(file) {
     if (!fs.existsSync(file)) {
